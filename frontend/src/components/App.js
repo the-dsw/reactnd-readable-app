@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
-import Posts from "./components/Posts"
-import Category from "./components/Category"
-import DetailsPost from "./components/DetailsPost"
+import Posts from "./Posts"
+import Category from "./Category"
+import DetailsPost from "./DetailsPost"
 
 class App extends Component {
   render() {
