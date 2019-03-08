@@ -34,17 +34,15 @@ const AddFormPost = styled.button`
     transform: scale(0.99);
   }
 `
-
 export default class extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      show: false
-    }
+  state = {
+    show: false,
   }
 
   handlerFormPost = () => {
-    this.setState({ show: !this.state.show })
+    this.setState((prevState) => ({
+      show: !prevState.show,
+    }))
   }
 
   render() {
@@ -52,7 +50,7 @@ export default class extends Component {
     return (
       <div>
         <AddFormPost show={show} onClick={this.handlerFormPost}>
-          Add new Post
+          {show ? 'Hide': 'Add new Post'}
         </AddFormPost>
         {show && <AddNewPost {...this.props} />}
       </div>

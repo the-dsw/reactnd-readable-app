@@ -1,13 +1,11 @@
 import React, { Component } from "react"
-import { Link } from "react-router-dom"
 import Layout from "../layouts/Layout"
 import styled from "styled-components"
 import { connect } from "react-redux"
 import { fetchPosts } from "../actions"
-import LinksPost from "./LinksPost"
 import Section from "./Section"
 import AddFormPost from "./AddPost"
-import _ from "lodash"
+import Post from "./Post"
 
 const Content = styled.div`
   display: flex;
@@ -16,56 +14,18 @@ const Content = styled.div`
   align-items: left;
   padding: 1.5rem;
 `
-const Block = styled.div`
-  display: flex;
-  flex-direction: column;
-  border: 1px solid black;
-  border-radius: 5px;
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
-`
-const Item = styled.div``
-
-const Links = styled(Link)`
-  color: black;
-  padding: 0 0.2rem;
-  &:hover {
-    opacity: 0.7;
-  }
-`
-const Title = styled(Item)`
-  font-size: 1.5rem;
-  justify-content: center;
-`
 class Posts extends Component {
   componentDidMount() {
     this.props.fetchPosts()
   }
-  renderPosts() {
-    const { posts } = this.props
-    return _.map(posts, post => {
-      const { category, id, title } = post
-      return (
-        <Block key={post.id}>
-          <Title>
-            <Links to={`/${category}/${id}`}>{title}</Links>
-          </Title>
 
-          <Item>author: {post.author}</Item>
-          <Item>comments: {post.commentCount}</Item>
-          <Item>votes: {post.voteScore}</Item>
-          <LinksPost postId={post.id} />
-        </Block>
-      )
-    })
-  }
   render() {
     return (
       <Layout {...this.props}>
         <Content>
           <Section>
             <h3>Posts</h3>
-            {this.renderPosts()}
+            {this.props.postsIds.map(id => <Post id={id} key={id}/>)}
             <AddFormPost {...this.props} />
           </Section>
         </Content>
@@ -74,7 +34,13 @@ class Posts extends Component {
   }
 }
 
-const mapStateToProps = ({ posts }) => ({ posts })
+const mapStateToProps = ({ posts }) => {
+  return {
+    postsIds: Object.keys(posts)
+      .sort((a, b) => posts[b].timestamp - posts[a].timestamp)
+  }
+}
+
 export default connect(
   mapStateToProps,
   { fetchPosts }
