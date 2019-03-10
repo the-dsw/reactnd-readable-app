@@ -66,9 +66,8 @@ const StyledTextareaField = styled(Field)`
   border-radius: 5px;
 `
 class LinksComment extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { show: false }
+  state = { 
+    show: false 
   }
 
   handleInitialize() {

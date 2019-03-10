@@ -7,6 +7,18 @@ import { withRouter } from "react-router-dom"
 import { deletePost, editPost } from "../actions"
 import _ from "lodash"
 
+const renderField = ({
+  input,
+  type,
+  placeholder,
+  meta: { touched, error }
+}) => (
+  <InputGroup>
+    <input type={type} placeholder={placeholder} {...input} />
+    {touched && error && <ErrorForm>{error}</ErrorForm>}
+  </InputGroup>
+)
+
 const Block = styled.div`
   display: flex;
   flex-direction: column;
@@ -26,18 +38,6 @@ const Linkses = styled(Link)`
     color: ${({ color }) => (color ? color : "black")};
   }
 `
-const renderField = ({
-  input,
-  type,
-  placeholder,
-  meta: { touched, error }
-}) => (
-  <InputGroup>
-    <input type={type} placeholder={placeholder} {...input} />
-    {touched && error && <ErrorForm>{error}</ErrorForm>}
-  </InputGroup>
-)
-
 const ErrorForm = styled.div`
   color: red;
   margin: 5px;
@@ -105,9 +105,8 @@ const StyledTextareaField = styled(Field)`
   border-radius: 5px;
 `
 class LinksPost extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { show: false }
+  state = { 
+    show: false 
   }
 
   handleInitialize() {

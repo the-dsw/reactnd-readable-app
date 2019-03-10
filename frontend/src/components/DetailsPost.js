@@ -27,11 +27,7 @@ const Title = styled(Item)`
   font-size: 1.5rem;
 `
 class DetailsPost extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
-
+ 
   componentDidMount() {
     const { category, post_id } = this.props.match.params
 

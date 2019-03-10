@@ -1,6 +1,29 @@
 import React, { Component } from "react"
 import styled from "styled-components"
 import AddNewPost from "./AddNewPost"
+export default class extends Component {
+  state = {
+    show: false,
+  }
+
+  handlerFormPost = () => {
+    this.setState((prevState) => ({
+      show: !prevState.show,
+    }))
+  }
+
+  render() {
+    const { show } = this.state
+    return (
+      <div>
+        <AddFormPost show={show} onClick={this.handlerFormPost}>
+          {show ? 'Hide': 'Add Post'}
+        </AddFormPost>
+        {show && <AddNewPost {...this.props} />}
+      </div>
+    )
+  }
+}
 
 const AddFormPost = styled.button`
   margin: 2rem;
@@ -34,26 +57,3 @@ const AddFormPost = styled.button`
     transform: scale(0.99);
   }
 `
-export default class extends Component {
-  state = {
-    show: false,
-  }
-
-  handlerFormPost = () => {
-    this.setState((prevState) => ({
-      show: !prevState.show,
-    }))
-  }
-
-  render() {
-    const { show } = this.state
-    return (
-      <div>
-        <AddFormPost show={show} onClick={this.handlerFormPost}>
-          {show ? 'Hide': 'Add new Post'}
-        </AddFormPost>
-        {show && <AddNewPost {...this.props} />}
-      </div>
-    )
-  }
-}

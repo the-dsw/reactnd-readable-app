@@ -12,7 +12,8 @@ const Content = styled.div`
   justify-content: center;
   align-content: center;
   cursor: pointer;
-  margin: auto 10rem;
+  margin: 0 auto;
+  width: 50%;
 `
 const Block = styled.div`
   display: flex;

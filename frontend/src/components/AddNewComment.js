@@ -72,11 +72,7 @@ const StyledTextareaField = styled(Field)`
 `
 
 class AddNewComment extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
-
+  
   handleFormSubmit = values => {
     const { idComment } = this.props
     this.props.addNewComment(values, idComment)

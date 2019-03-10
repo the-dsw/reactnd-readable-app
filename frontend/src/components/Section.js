@@ -19,8 +19,7 @@ const CategoryContent = styled(Content)`
   background-color: #fff;
 `
 export default class extends Component {
-  state = {}
-
+  
   render() {
     const { children } = this.props
 

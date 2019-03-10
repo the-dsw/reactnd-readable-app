@@ -8,6 +8,7 @@ class Post extends Component {
   render() {
     const { post } = this.props
     const { category, id, title, author, commentCount, voteScore } = post
+    
     return (
       <Block>
           <Title>

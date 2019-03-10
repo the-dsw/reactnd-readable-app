@@ -24,10 +24,6 @@ const Button = styled.button`
   }
 `
 class Votes extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
 
   handlerVote = (id, option) => {
     this.props.fetchVote(id, option)

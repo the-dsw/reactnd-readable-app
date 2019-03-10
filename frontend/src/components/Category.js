@@ -57,7 +57,7 @@ class Category extends Component {
             <Item>category: {item.category}</Item>
           </Block>
         )
-      }
+      } 
     })
   }
 

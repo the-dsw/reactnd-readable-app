@@ -4,7 +4,71 @@ import { addNewPost } from "../actions"
 import { connect } from "react-redux"
 import styled from "styled-components"
 import _ from "lodash"
+class AddNewPost extends Component {
+  
+  handleFormSubmit = values => {
+    this.props.addNewPost(values, () => {
+      this.props.history.push("/")
+    })
+  }
+  getOptionCategory() {
+    return _.map(this.props.categories, category => {
+      return (
+        <option key={category.name} value={category.path}>
+          {category.name}
+        </option>
+      )
+    })
+  }
 
+  render() {
+    const { handleSubmit, submitting, pristine, reset } = this.props
+    
+    return (
+      <StyledForm>
+        <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+          {/* Title */}
+          <Field
+            name="title"
+            component={renderField}
+            type="text"
+            placeholder="Title"
+          />
+          {/* Author */}
+          <Field
+            name="author"
+            component={renderField}
+            type="text"
+            placeholder="Author's name"
+          />
+          {/* Category */}
+          <StyledCategories>
+            <label>Categories</label>
+            <Field name="categoryName" component="select">
+              <option value="">Select a category...</option>
+              {this.getOptionCategory()}
+            </Field>
+          </StyledCategories>
+          {/* Body */}
+          <StyledTextareaField name="comment" component="textarea" />
+          {/* Save button */}
+          <SaveButton>
+            <StyledButton type="submit" disabled={pristine || submitting}>
+              Save
+            </StyledButton>
+            <StyledButton
+              bgc="#ccc"
+              onClick={reset}
+              disabled={pristine || submitting}
+            >
+              Clear
+            </StyledButton>
+          </SaveButton>
+        </form>
+      </StyledForm>
+    )
+  }
+}
 const renderField = ({
   input,
   type,
@@ -84,77 +148,6 @@ const StyledCategories = styled.div`
     height: 2.75rem;
   }
 `
-
-class AddNewPost extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
-
-  handleFormSubmit = values => {
-    this.props.addNewPost(values, () => {
-      this.props.history.push("/")
-    })
-  }
-  getOptionCategory() {
-    return _.map(this.props.categories, category => {
-      return (
-        <option key={category.name} value={category.path}>
-          {category.name}
-        </option>
-      )
-    })
-  }
-
-  render() {
-    const { handleSubmit, submitting, pristine, reset } = this.props
-
-    return (
-      <StyledForm>
-        <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-          {/* Title */}
-          <Field
-            name="title"
-            component={renderField}
-            type="text"
-            placeholder="Title"
-          />
-          {/* Author */}
-          <Field
-            name="author"
-            component={renderField}
-            type="text"
-            placeholder="Author's name"
-          />
-          {/* Category */}
-          <StyledCategories>
-            <label>Categories</label>
-            <Field name="categoryName" component="select">
-              <option value="">Select a category...</option>
-              {this.getOptionCategory()}
-            </Field>
-          </StyledCategories>
-          {/* Body */}
-          <StyledTextareaField name="comment" component="textarea" />
-
-          {/* Save button */}
-          <SaveButton>
-            <StyledButton type="submit" disabled={pristine || submitting}>
-              Save
-            </StyledButton>
-            <StyledButton
-              bgc="#ccc"
-              onClick={reset}
-              disabled={pristine || submitting}
-            >
-              Clear
-            </StyledButton>
-          </SaveButton>
-        </form>
-      </StyledForm>
-    )
-  }
-}
 const mapStateToProps = ({ categories }) => {
   return { categories }
 }
