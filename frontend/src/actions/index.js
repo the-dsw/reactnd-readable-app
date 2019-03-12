@@ -92,7 +92,7 @@ export const fetchComments = id => async dispatch => {
 }
 
 /**
- * Fetch Fetch Post Vote
+ * Fetch Post Vote
  */
 export const fetchVote = (id, option) => async dispatch => {
   const res = await axios.post(

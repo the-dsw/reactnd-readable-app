@@ -3,11 +3,13 @@ import { connect } from 'react-redux'
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 import LinksPost from "./LinksPost"
+import LinksFooter from "./Votes"
+
 
 class Post extends Component {
+
   render() {
-    const { post } = this.props
-    const { category, id, title, author, commentCount, voteScore } = post
+    const { category, id, title, author, commentCount, voteScore } = this.props.post
     
     return (
       <Block>
@@ -19,6 +21,11 @@ class Post extends Component {
           <Item>comments: {commentCount}</Item>
           <Item>votes: {voteScore}</Item>
           <LinksPost postId={id} />
+          <LinksFooter
+                  idVote={id}
+                  voteScore={voteScore}
+                  {...this.props}
+                />
         </Block>
     )
   }
@@ -48,6 +55,7 @@ const Title = styled(Item)`
 
 const mapStateToProps = ({ posts }, {id}) => {
   const post = posts[id]
+
   return {
     post: post
       ? post

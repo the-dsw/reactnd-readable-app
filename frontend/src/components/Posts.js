@@ -69,9 +69,11 @@ class Posts extends Component {
   state = {
     value: ''
   }
+
   componentDidMount() {
     this.props.fetchPosts()
   }
+
   handleChange = (event) => {
     this.setState({value: event.target.value});
   }
@@ -79,6 +81,7 @@ class Posts extends Component {
   render() { 
     const { value } =  this.state
     const { posts } =  this.props
+
     if (!posts) {
       return <p>Posts not found</p>
     }
@@ -88,7 +91,7 @@ class Posts extends Component {
           <Section>
             <Item>
               <Label htmlFor="sel1">SortBy:</Label>
-              <SelectStyled onChange={this.handleChange} className="form-control" id="sel1">
+              <SelectStyled onChange={this.handleChange} id="sel1">
                 <option value='timestamp'>Date</option>
                 <option value='voteScore'>Votes</option>
               </SelectStyled>

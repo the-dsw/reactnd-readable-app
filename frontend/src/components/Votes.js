@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import styled from "styled-components"
 import { connect } from "react-redux"
-import { fetchVote } from "../actions"
+import { fetchVote, fetchPosts } from "../actions"
 
 const Block = styled.div`
   display: flex;
@@ -27,11 +27,12 @@ class Votes extends Component {
 
   handlerVote = (id, option) => {
     this.props.fetchVote(id, option)
+    this.props.fetchPosts()
   }
 
   render() {
     const { idVote, voteScore } = this.props
-
+    
     return (
       <Block>
         <WrapVotes>
@@ -58,5 +59,5 @@ class Votes extends Component {
 const mapStateToProps = ({ posts }) => ({ posts })
 export default connect(
   mapStateToProps,
-  { fetchVote }
+  { fetchVote, fetchPosts }
 )(Votes)
