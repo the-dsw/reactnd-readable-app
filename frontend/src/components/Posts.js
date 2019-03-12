@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import _ from 'lodash'
 import Layout from "../layouts/Layout"
 import styled from "styled-components"
 import { connect } from "react-redux"
@@ -79,7 +78,10 @@ class Posts extends Component {
 
   render() { 
     const { value } =  this.state
-
+    const { posts } =  this.props
+    if (!posts) {
+      return <p>Posts not found</p>
+    }
     return (
       <Layout {...this.props}>
         <Content>
@@ -109,7 +111,7 @@ const mapStateToProps = ({ posts }) => {
       .sort((a, b) => posts[b].timestamp - posts[a].timestamp),
     postsVotes: Object.keys(posts)
       .sort((a, b) => posts[b].voteScore - posts[a].voteScore),
-    posts,
+    posts: Object.keys(posts).filter(id => posts[id] !== id),
   }
 }
 

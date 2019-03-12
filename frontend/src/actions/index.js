@@ -38,7 +38,7 @@ export const fetchPosts = () => async dispatch => {
 /**
  * Fetch Detail Post
  */
-export const fetchDetailsPost = (id, callback) => async dispatch => {
+export const fetchDetailsPost = (id) => async dispatch => {
   const res = await axios.get(`${API_URL}/posts/${id}`, {
     headers: { ...headers }
   })
@@ -47,8 +47,6 @@ export const fetchDetailsPost = (id, callback) => async dispatch => {
     type: GET_DETAILS_POST,
     payload: res.data
   })
-
-  await callback()
 }
 
 /**

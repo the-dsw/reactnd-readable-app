@@ -7,6 +7,7 @@ import LinksFooter from "./Votes"
 import Comments from "./Comments"
 import AddNewComment from "./AddNewComment"
 import Section from "./Section"
+import NoPost from "./404"
 
 const Content = styled.div`
   margin-top: 5rem;
@@ -22,6 +23,7 @@ const Block = styled.div`
 `
 const Item = styled.div`
   display: flex;
+  flex-direction: column;
 `
 const Title = styled(Item)`
   font-size: 1.5rem;
@@ -29,44 +31,50 @@ const Title = styled(Item)`
 class DetailsPost extends Component {
  
   componentDidMount() {
-    const { category, post_id } = this.props.match.params
+    const { post_id } = this.props.match.params
 
-    this.props.fetchDetailsPost(post_id, () => {
-      this.props.history.push(`/${category}/${post_id}`)
-    })
+    this.props.fetchDetailsPost(post_id)
   }
 
   render() {
     const { details } = this.props
     const { post_id } = this.props.match.params
 
-    return (
-      <Layout {...this.props}>
-        <Section>
-          <Content>
-            <Block>
-              <Title>
-                <Item>{details.title}</Item>
-              </Title>
-              <Item>comment: {details.body}</Item>
-              <Item>author: {details.author}</Item>
-
-              <LinksFooter
-                idVote={post_id}
-                voteScore={details.voteScore}
-                {...this.props}
-              />
-            </Block>
-            <h3>Add a new comment:</h3>
-            <AddNewComment idComment={post_id} />
-            <Comments idComment={post_id} />
-          </Content>
-        </Section>
-      </Layout>
-    )
+    if (details.id) {
+      return (
+        <Layout {...this.props}>
+          <Section>
+            <Content>
+              <Block>
+                <Title>
+                  <Item>{details.title}</Item>
+                </Title>
+                <Item>comment: {details.body}</Item>
+                <Item>author: {details.author}</Item>  
+                <LinksFooter
+                  idVote={post_id}
+                  voteScore={details.voteScore}
+                  {...this.props}
+                />
+              </Block>
+              <h3>Add a new comment:</h3>
+              <AddNewComment idComment={post_id} />
+              <Comments idComment={post_id} />
+            </Content>
+          </Section>
+        </Layout>
+      )
+    } else {
+      return (
+        <NoPost />
+      )
+    }
+    
   }
 }
-const mapStateToProps = ({ details }) => ({ details })
+const mapStateToProps = ({ details }) => ({ 
+  details,
+})
 
 export default connect(
   mapStateToProps,

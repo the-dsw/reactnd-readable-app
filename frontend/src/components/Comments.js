@@ -44,11 +44,12 @@ class Comments extends Component {
 
   render() {
     const { comments } = this.props
+    const totalComments = Object.keys(comments).length
 
     return (
       <Layout {...this.props}>
         <Content>
-          <h3>Comments:</h3>
+          <h3>{totalComments} Comments:</h3>
           {_.isEmpty(comments) ? (
             <Block>Not messages yet!</Block>
           ) : (
