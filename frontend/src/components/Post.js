@@ -22,10 +22,10 @@ class Post extends Component {
           <Item>votes: {voteScore}</Item>
           <LinksPost postId={id} />
           <LinksFooter
-                  idVote={id}
-                  voteScore={voteScore}
-                  {...this.props}
-                />
+            idVote={id}
+            voteScore={voteScore}
+            {...this.props}
+          />
         </Block>
     )
   }

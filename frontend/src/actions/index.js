@@ -12,7 +12,8 @@ import {
   DELETE_POST,
   EDIT_POST,
   DELETE_COMMENT,
-  EDIT_COMMENT
+  EDIT_COMMENT,
+  VOTE_COMMENT
 } from "./types";
 
 const API_URL = "http://localhost:3001"
@@ -160,6 +161,24 @@ export const addNewComment = (values, idComment) => async dispatch => {
   })
 
   dispatch(reset("add_new_comment"))
+}
+
+/**
+ * Fetch Comment Vote
+ */
+export const voteComment = (id, option) => async dispatch => {
+  const res = await axios.post(
+    `${API_URL}/comments/${id}`, 
+    { option }, 
+    {
+      headers: { ...headers }
+    }
+  )
+
+  dispatch({ 
+    type: VOTE_COMMENT,
+    payload: res.data
+   })
 }
 
 /**

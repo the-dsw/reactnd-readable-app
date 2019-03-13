@@ -4,6 +4,7 @@ import styled from "styled-components"
 import { connect } from "react-redux"
 import { fetchComments } from "../actions"
 import LinksComment from "./LinksComment"
+import LinksFooter from "./VotesComment"
 import _ from "lodash"
 
 const Content = styled.div`
@@ -30,13 +31,21 @@ class Comments extends Component {
 
   renderComments() {
     const { comments } = this.props
-    return _.map(comments, comment => {
-      const { id, author, body } = comment
+
+    return Object.keys(comments).map(comment => {
+      const { id, author, body, voteScore} = comments[comment]
+
       return (
         <Block key={id}>
           <Item>author: {author}</Item>
           <Item>comment: {body}</Item>
+          <Item>votes: {voteScore}</Item>
           <LinksComment commentId={id} />
+          <LinksFooter
+            idVote={id}
+            voteScore={voteScore}
+            {...this.props}
+          />
         </Block>
       )
     })
@@ -49,7 +58,7 @@ class Comments extends Component {
     return (
       <Layout {...this.props}>
         <Content>
-          <h3>{totalComments} Comments:</h3>
+          <h3>{totalComments > 1 ? (`${totalComments} Comments:`) : (`${totalComments} Comment:`)} </h3>
           {_.isEmpty(comments) ? (
             <Block>Not messages yet!</Block>
           ) : (
@@ -60,7 +69,11 @@ class Comments extends Component {
     )
   }
 }
-const mapStateToProps = ({ comments }) => ({ comments })
+const mapStateToProps = ({ comments, posts }, {idComment}) => ({ 
+  comments, 
+  posts,
+  idComment 
+})
 
 export default connect(
   mapStateToProps,
