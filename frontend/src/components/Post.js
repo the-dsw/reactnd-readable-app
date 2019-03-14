@@ -55,7 +55,7 @@ const Title = styled(Item)`
 
 const mapStateToProps = ({ posts }, {id}) => {
   const post = posts[id]
-
+  
   return {
     post: post
       ? post

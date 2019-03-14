@@ -5,6 +5,7 @@ import { connect } from "react-redux"
 import { fetchDetailsPost } from "../actions"
 import LinksFooter from "./Votes"
 import Comments from "./Comments"
+import LinksDetailsPost from "./LinksDetailsPost"
 import AddNewComment from "./AddNewComment"
 import Section from "./Section"
 import NoPost from "./404"
@@ -34,26 +35,29 @@ class DetailsPost extends Component {
     const { post_id } = this.props.match.params
 
     this.props.fetchDetailsPost(post_id)
+
   }
 
   render() {
-    const { details } = this.props
+    const { posts } = this.props
     const { post_id } = this.props.match.params
+    const post = posts[post_id]
 
-    if (details.id) {
+    if (post) {
       return (
         <Layout {...this.props}>
           <Section>
             <Content>
               <Block>
                 <Title>
-                  <Item>{details.title}</Item>
+                  <Item>{post.title}</Item>
                 </Title>
-                <Item>comment: {details.body}</Item>
-                <Item>author: {details.author}</Item>  
+                <Item>comment: {post.body}</Item>
+                <Item>author: {post.author}</Item>  
+                <LinksDetailsPost postId={post_id} />
                 <LinksFooter
                   idVote={post_id}
-                  voteScore={details.voteScore}
+                  voteScore={post.voteScore}
                   {...this.props}
                 />
               </Block>
@@ -72,8 +76,8 @@ class DetailsPost extends Component {
     
   }
 }
-const mapStateToProps = ({ details }) => ({ 
-  details,
+const mapStateToProps = ({ posts }) => ({ 
+  posts
 })
 
 export default connect(

@@ -3,7 +3,7 @@ import {
   FETCH_POSTS,
   ADD_NEW_POST,
   DELETE_POST,
-  EDIT_POST
+  EDIT_POST,
 } from "../actions/types"
 
 export default function(state = {}, action) {
