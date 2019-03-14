@@ -53,8 +53,8 @@ const Title = styled(Item)`
   justify-content: center;
 `
 
-const mapStateToProps = ({ posts }, {id}) => {
-  const post = posts[id]
+const mapStateToProps = ({ posts }, {post_id}) => {
+  const post = posts[post_id]
   
   return {
     post: post

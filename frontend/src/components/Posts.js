@@ -104,8 +104,8 @@ class Posts extends Component {
                 </SelectStyled>
               </Item>
               {value === 'voteScore' 
-                ? this.props.postsVotes.map(id => <Post id={id} key={id}/>)
-                : this.props.postsDates.map(id => <Post id={id} key={id}/>)
+                ? this.props.postsVotes.map(id => <Post post_id={id} key={id}/>)
+                : this.props.postsDates.map(id => <Post post_id={id} key={id}/>)
               }
               <AddFormPost {...this.props} />
             </Section>
