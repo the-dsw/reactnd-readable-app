@@ -57,7 +57,15 @@ class Category extends Component {
             <Item>category: {item.category}</Item>
           </Block>
         )
-      } 
+      } else {
+        return (
+        <Block key={item.id}>
+          <Title>
+              No Post for this Category
+          </Title>
+        </Block>
+        )
+      }
     })
   }
 

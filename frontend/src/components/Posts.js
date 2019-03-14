@@ -82,29 +82,38 @@ class Posts extends Component {
     const { value } =  this.state
     const { posts } =  this.props
 
-    if (!posts) {
-      return <p>Posts not found</p>
+    if (posts.length === 0) {
+      return <Layout {...this.props}>
+                <Content>
+                  <Section>
+                    <Item style={{fontSize: "1.5rem"}}>No Posts Yet!!!</Item>
+                    <AddFormPost {...this.props} />
+                  </Section>
+                </Content>
+              </Layout>
+    } else {
+      return (
+        <Layout {...this.props}>
+          <Content>
+            <Section>
+              <Item>
+                <Label htmlFor="sel1">SortBy:</Label>
+                <SelectStyled onChange={this.handleChange} id="sel1">
+                  <option value='timestamp'>Date</option>
+                  <option value='voteScore'>Votes</option>
+                </SelectStyled>
+              </Item>
+              {value === 'voteScore' 
+                ? this.props.postsVotes.map(id => <Post id={id} key={id}/>)
+                : this.props.postsDates.map(id => <Post id={id} key={id}/>)
+              }
+              <AddFormPost {...this.props} />
+            </Section>
+          </Content>
+        </Layout>
+      )
     }
-    return (
-      <Layout {...this.props}>
-        <Content>
-          <Section>
-            <Item>
-              <Label htmlFor="sel1">SortBy:</Label>
-              <SelectStyled onChange={this.handleChange} id="sel1">
-                <option value='timestamp'>Date</option>
-                <option value='voteScore'>Votes</option>
-              </SelectStyled>
-            </Item>
-            {value === 'voteScore' 
-              ? this.props.postsVotes.map(id => <Post id={id} key={id}/>)
-              : this.props.postsDates.map(id => <Post id={id} key={id}/>)
-            }
-            <AddFormPost {...this.props} />
-          </Section>
-        </Content>
-      </Layout>
-    )
+    
   }
 }
 
